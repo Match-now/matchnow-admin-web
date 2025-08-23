@@ -22,7 +22,6 @@
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
-    <!-- 경로 수정: /admin/pages/css/ → /admin/styles/css/ -->
     <link rel="stylesheet" href="/admin/styles/css/styles.css">
 </head>
 <body>
@@ -35,6 +34,7 @@
         <div class="nav-tabs">
             <button class="nav-tab active" id="tab-dashboard">대시보드</button>
             <button class="nav-tab" id="tab-football-schedule">축구경기일정</button>
+            <button class="nav-tab" id="tab-batch-scheduling">⏰ 스케줄링</button>
             <button class="nav-tab" id="tab-countries">국가</button>
             <button class="nav-tab" id="tab-sports">스포츠 카테고리</button>
             <button class="nav-tab" id="tab-leagues">리그</button>
@@ -46,12 +46,13 @@
         <div id="content-area"></div>
     </div>
 
-    <!-- 경로 수정: /admin/pages/js/ → /admin/js/ -->
+    <!-- JavaScript 파일들 로드 -->
     <script src="/admin/js/common/config.js"></script>
     <script src="/admin/js/common/utils.js"></script>
     <script src="/admin/js/common/api.js"></script>
     <script src="/admin/js/tabs/dashboard.js"></script>
     <script src="/admin/js/tabs/football-schedule.js"></script>
+    <script src="/admin/js/tabs/batch-scheduling.js"></script>
     <script src="/admin/js/tabs/countries.js"></script>
     <script src="/admin/js/tabs/sports-categories.js"></script>
     <script src="/admin/js/tabs/leagues.js"></script>
