@@ -63,8 +63,8 @@ const BatchScheduling = {
                         <div class="form-group">
                             <label>실행 주기 (초) *</label>
                             <input type="number" id="schedulingInterval" class="form-control" 
-                                   min="60" max="86400" value="300" required>
-                            <small>60초(1분) ~ 86400초(24시간) 사이의 값</small>
+                                   min="3" max="86400" value="300" required>
+                            <small>3초 ~ 86400초(24시간) 사이의 값</small>
                         </div>
                         
                         <div class="form-group">
