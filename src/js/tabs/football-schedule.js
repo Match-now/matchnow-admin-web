@@ -686,24 +686,24 @@ const FootballSchedule = {
         const matchId = match._id || match.id;
 
         // 🆕 중계 버튼을 액션 버튼들에 추가
-        const matchActions = `
-            <div class="match-actions" style="margin-top: 15px;">
-                <button class="btn btn-info btn-sm" onclick="FootballSchedule.viewMatchDetails('${match.id || match._id}')">상세 보기</button>
+        // const matchActions = `
+        //     <div class="match-actions" style="margin-top: 15px;">
+        //         <button class="btn btn-info btn-sm" onclick="FootballSchedule.viewMatchDetails('${match.id || match._id}')">상세 보기</button>
                 
-                <!-- 🆕 중계 버튼 추가 -->
-                <button class="broadcast-btn btn-sm" onclick="FootballSchedule.openBroadcast('${match.home?.name || '홈팀'} vs ${match.away?.name || '원정팀'}', '${match._id || match.id}')">🔴 중계</button>
+        //         <!-- 🆕 중계 버튼 추가 -->
+        //         <button class="broadcast-btn btn-sm" onclick="FootballSchedule.openBroadcast('${match.home?.name || '홈팀'} vs ${match.away?.name || '원정팀'}', '${match._id || match.id}')">🔴 중계</button>
                 
-                ${(match.stats || match.fullStats) ? `
-                    <button class="btn btn-purple btn-sm" onclick="FootballSchedule.showDetailedStats('${match._id || match.id}')">📊 통계</button>
-                ` : ''}
-                ${match._id ? `
-                    <button class="btn btn-warning btn-sm" onclick="FootballSchedule.editMatch('${match._id}', '${match.id}')">✏️ 수정</button>
-                    <button class="btn btn-danger btn-sm" onclick="FootballSchedule.deleteMatch('${match._id}', '${match.home?.name || '홈팀'}', '${match.away?.name || '원정팀'}')">🗑️ 삭제</button>
-                ` : `
-                    <button class="btn btn-success btn-sm" onclick="FootballSchedule.saveToLocal('${match.id}')">💾 저장</button>
-                `}
-            </div>
-        `;
+        //         ${(match.stats || match.fullStats) ? `
+        //             <button class="btn btn-purple btn-sm" onclick="FootballSchedule.showDetailedStats('${match._id || match.id}')">📊 통계</button>
+        //         ` : ''}
+        //         ${match._id ? `
+        //             <button class="btn btn-warning btn-sm" onclick="FootballSchedule.editMatch('${match._id}', '${match.id}')">✏️ 수정</button>
+        //             <button class="btn btn-danger btn-sm" onclick="FootballSchedule.deleteMatch('${match._id}', '${match.home?.name || '홈팀'}', '${match.away?.name || '원정팀'}')">🗑️ 삭제</button>
+        //         ` : `
+        //             <button class="btn btn-success btn-sm" onclick="FootballSchedule.saveToLocal('${match.id}')">💾 저장</button>
+        //         `}
+        //     </div>
+        // `;
 
         return `
             <div class="match-card enhanced-match-card ${match.fullStats ? 'complete-data' : ''}" data-match-id="${matchId}">
@@ -763,6 +763,7 @@ const FootballSchedule = {
                 
                 <div class="match-actions" style="margin-top: 15px;">
                     <button class="btn btn-info btn-sm" onclick="FootballSchedule.viewMatchDetails('${match.id || match._id}')">상세 보기</button>
+                    <button class="broadcast-btn btn-sm" onclick="FootballSchedule.openBroadcast('${match.home?.name || '홈팀'} vs ${match.away?.name || '원정팀'}', '${match._id || match.id}')">🔴 중계</button>
                     ${(match.stats || match.fullStats) ? `
                         <button class="btn btn-purple btn-sm" onclick="FootballSchedule.showDetailedStats('${match._id || match.id}')">📊 통계</button>
                     ` : ''}
