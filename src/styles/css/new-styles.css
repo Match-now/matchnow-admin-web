@@ -1,310 +1,430 @@
-/* new-styles.css - 새로운 테이블 형식 스타일 */
+/* new-styles.css */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-body {
-    background: #f7f9fc;
-    color: #333;
-}
-
-header {
+/* 1. 내비게이션 탭 간격 줄이기 */
+.nav-tabs {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background: #fff;
-    border-bottom: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 5px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 2px; /* 간격을 2px로 줄임 */
 }
 
-header h1 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #3b82f6;
-}
-
-header .login-info {
-    font-size: 14px;
-    color: #555;
-}
-
-.container {
-    display: flex;
-    min-height: calc(100vh - 60px);
-}
-
-nav {
-    width: 220px;
-    background: #f1f5f9;
-    border-right: 1px solid #ddd;
-    padding: 20px 0;
-}
-
-nav ul {
-    list-style: none;
-}
-
-nav li {
-    padding: 15px 20px;
+.nav-tab {
+    flex: none; /* flex: 1 제거하여 자동 너비 */
+    padding: 12px 16px; /* 패딩 줄임 */
+    background: transparent;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    transition: 0.2s;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: auto; /* 최소 너비 제거 */
+    margin: 0; /* 마진 제거 */
+    font-size: 0.9em; /* 폰트 크기 약간 줄임 */
 }
 
-nav li.active, nav li:hover {
-    background: #3b82f6;
-    color: #fff;
+.nav-tab.active {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
 }
 
-main {
-    flex: 1;
-    padding: 20px;
-    overflow-x: auto;
+/* 2. 축구 경기 테이블 스타일 */
+.football-content {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 25px;
 }
 
-/* 검색 바 스타일 */
 .search-bar {
     display: flex;
-    gap: 8px;
-    margin-bottom: 15px;
-    background: #fff;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    gap: 15px;
     align-items: center;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 15px;
+    border: 2px solid #667eea;
     flex-wrap: wrap;
 }
 
 .search-bar select,
-.search-bar input[type="text"],
-.search-bar input[type="date"] {
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 13px;
-    min-width: 120px;
+.search-bar input {
+    padding: 10px 15px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    font-weight: 500;
+    min-width: 150px;
 }
 
-.search-btn, .register-btn {
-    padding: 6px 12px;
+.search-bar select:focus,
+.search-bar input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+}
+
+.search-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
     border: none;
-    border-radius: 4px;
-    background: #3b82f6;
-    color: #fff;
-    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
-    white-space: nowrap;
-    min-width: 80px;
+    transition: all 0.3s ease;
 }
 
-.search-btn:hover, .register-btn:hover {
-    background: #2563eb;
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.register-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .divider {
-    width: 1px;
-    height: 24px;
-    background: #ccc;
-    margin: 0 8px;
+    width: 2px;
+    height: 30px;
+    background: #dee2e6;
+    margin: 0 10px;
 }
 
-/* 테이블 스타일 */
-table {
+/* 3. 테이블 스타일 */
+.matches-table-container {
+    overflow-x: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.matches-table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
-    border: 1px solid #ddd;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    min-width: 1200px; /* 최소 너비 설정 */
 }
 
-thead {
-    background: #e5e7eb;
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    font-size: 13px;
+.matches-table th {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 15px 10px;
     text-align: center;
+    font-weight: 600;
+    font-size: 0.9em;
+    border: none;
 }
 
-tr:nth-child(even) {
-    background: #f9fafb;
+.matches-table td {
+    padding: 12px 8px;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+    font-size: 0.85em;
 }
 
-/* 경기별 입력 컨트롤 스타일 */
+.matches-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* 4. 셀 내부 요소 스타일 */
 .datetime-input {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    align-items: center;
+    gap: 5px;
+    min-width: 120px;
 }
 
 .datetime-input input {
-    width: 90px;
-    padding: 4px;
-    border: 1px solid #ccc;
+    padding: 4px 6px;
+    border: 1px solid #dee2e6;
     border-radius: 4px;
-    font-size: 12px;
-    text-align: center;
-}
-
-.state-radio {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.state-radio label {
-    font-size: 11px;
-}
-
-.toggle-options select {
-    width: 120px;
-    margin-top: 5px;
-    padding: 3px;
-    font-size: 11px;
-}
-
-.time-inputs {
-    display: flex;
-    gap: 3px;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 0;
-}
-
-.time-inputs input {
-    width: 40px;
-    padding: 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 12px;
-    text-align: center;
-}
-
-.time-inputs input[type="date"] {
-    width: 90px;
-}
-
-.time-inputs .time-label {
-    font-size: 11px;
-    color: #666;
-    margin: 0 2px;
+    font-size: 0.8em;
 }
 
 .team-score {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     align-items: center;
-    justify-content: center;
-    margin: 5px 0;
+    gap: 5px;
+    min-width: 100px;
+}
+
+.team-name {
+    font-weight: 600;
+    font-size: 0.8em;
+    color: #495057;
+    text-align: center;
+    word-break: keep-all;
+    max-width: 80px;
 }
 
 .team-score input {
-    width: 40px;
+    width: 50px;
     padding: 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 12px;
     text-align: center;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* 5. 상태 라디오 버튼 영역 */
+.state-radio {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.75em;
+    min-width: 150px;
+}
+
+.state-radio label {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+}
+
+.state-radio input[type="radio"] {
+    margin: 0;
+    width: 12px;
+    height: 12px;
+}
+
+.toggle-options {
+    margin: 3px 0;
+}
+
+.toggle-options select {
+    width: 100%;
+    padding: 2px;
+    font-size: 0.7em;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+}
+
+.toggle-options select:disabled {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+/* 6. 시간 입력 영역 */
+.time-inputs {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin: 5px 0;
+    font-size: 0.75em;
+}
+
+.time-inputs input {
+    width: 35px;
+    padding: 2px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+.time-inputs input[type="date"] {
+    width: 90px;
+    font-size: 0.7em;
+}
+
+.time-label {
+    font-weight: bold;
+    color: #495057;
 }
 
 .state-content-buttons {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
     margin-top: 5px;
-    align-items: center;
 }
 
 .state-content-buttons button {
-    padding: 4px 8px;
-    border: none;
-    border-radius: 4px;
-    background: #3b82f6;
-    color: #fff;
+    padding: 3px 6px;
+    font-size: 0.7em;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    background: #f8f9fa;
     cursor: pointer;
-    font-size: 12px;
-    width: 100px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.state-content-buttons button:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+/* 7. 중계 버튼 가로 정렬 */
+.broadcast-buttons-horizontal {
+    display: flex;
+    flex-direction: row; /* 가로 정렬 */
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* 필요시 줄바꿈 */
+    min-width: 180px;
 }
 
 .broadcast-btn {
-    padding: 4px 8px;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    color: white;
     border: none;
+    padding: 5px 8px;
     border-radius: 4px;
-    background: #3b82f6;
-    color: #fff;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 12px;
-    margin: 2px;
+    font-size: 0.7em;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 50px;
 }
 
+.broadcast-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+}
+
+.broadcast-btn.danger {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+}
+
+.broadcast-btn.danger:hover {
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+}
+
+/* 8. 토글 버튼 */
 .toggle-btn {
-    padding: 4px 8px;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
     border: none;
+    padding: 6px 12px;
     border-radius: 4px;
-    background: #3b82f6;
-    color: #fff;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 0.8em;
+    transition: all 0.3s ease;
+    min-width: 50px;
 }
 
-select, input[type="date"], input[type="text"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 12px;
+.toggle-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
 }
 
-/* 기존 스타일과의 호환성 */
+.toggle-btn.manual-mode {
+    background: linear-gradient(45deg, #ffc107, #ffb300);
+    color: #212529;
+}
+
+.toggle-btn.manual-mode:hover {
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.4);
+}
+
+/* 9. 빈 상태 스타일 */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 15px;
+    border: 2px dashed #6c757d;
+    margin: 20px 0;
+}
+
+.empty-state h3 {
+    color: #495057;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+.empty-state p {
+    color: #6c757d;
+    font-size: 1.1em;
+}
+
+/* 10. 로딩 스타일 */
 .loading {
     text-align: center;
-    padding: 40px;
-    color: #666;
+    padding: 60px;
+    color: #667eea;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 15px;
+    border: 2px dashed #667eea;
 }
 
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #667eea;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 11. 에러 스타일 */
 .error {
-    background: #fee;
-    color: #c33;
-    padding: 15px;
-    border-radius: 4px;
-    margin: 10px 0;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
     text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }
 
-.success {
-    background: #efe;
-    color: #3c3;
-    padding: 15px;
-    border-radius: 4px;
-    margin: 10px 0;
-    text-align: center;
-}
-
-/* 반응형 */
-@media (max-width: 768px) {
-    .container {
+/* 12. 반응형 디자인 */
+@media (max-width: 1400px) {
+    .matches-table {
+        font-size: 0.8em;
+    }
+    
+    .matches-table th,
+    .matches-table td {
+        padding: 10px 6px;
+    }
+    
+    .broadcast-buttons-horizontal {
         flex-direction: column;
+        gap: 2px;
+        min-width: 80px;
     }
     
-    nav {
-        width: 100%;
+    .broadcast-btn {
+        font-size: 0.65em;
+        padding: 3px 6px;
     }
-    
-    nav ul {
-        display: flex;
-        overflow-x: auto;
-    }
-    
-    nav li {
-        white-space: nowrap;
-        min-width: 120px;
+}
+
+@media (max-width: 1200px) {
+    .matches-table-container {
+        overflow-x: scroll;
     }
     
     .search-bar {
@@ -312,7 +432,134 @@ select, input[type="date"], input[type="text"] {
         align-items: stretch;
     }
     
-    .search-bar > * {
-        margin-bottom: 5px;
+    .search-bar select,
+    .search-bar input {
+        min-width: auto;
+    }
+    
+    .state-radio {
+        font-size: 0.7em;
+    }
+    
+    .time-inputs {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-tabs {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .nav-tab {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .football-content {
+        padding: 15px;
+    }
+    
+    .search-bar {
+        padding: 15px;
+    }
+    
+    .matches-table {
+        min-width: 800px; /* 모바일에서 최소 너비 줄임 */
+        font-size: 0.75em;
+    }
+    
+    .matches-table th,
+    .matches-table td {
+        padding: 8px 4px;
+    }
+    
+    .team-name {
+        font-size: 0.7em;
+        max-width: 60px;
+    }
+    
+    .broadcast-buttons-horizontal {
+        min-width: 60px;
+    }
+    
+    .broadcast-btn {
+        font-size: 0.6em;
+        padding: 2px 4px;
+    }
+}
+
+/* 13. 스크롤바 스타일 */
+.matches-table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.matches-table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.matches-table-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 4px;
+}
+
+.matches-table-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #5a67d8, #6c5b7b);
+}
+
+/* 14. 애니메이션 효과 */
+.matches-table tbody tr {
+    animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 15. 포커스 및 접근성 */
+.search-bar select:focus,
+.search-bar input:focus,
+.matches-table input:focus,
+.matches-table select:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.state-radio input[type="radio"]:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 1px;
+}
+
+/* 16. 프린트 스타일 */
+@media print {
+    .search-bar {
+        display: none;
+    }
+    
+    .broadcast-buttons-horizontal {
+        display: none;
+    }
+    
+    .toggle-btn {
+        display: none;
+    }
+    
+    .matches-table {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    .matches-table th {
+        background: #f0f0f0 !important;
+        color: #000 !important;
     }
 }
