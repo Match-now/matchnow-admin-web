@@ -121,7 +121,8 @@
 }
 
 .matches-table th {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    /* background: linear-gradient(135deg, #667eea, #764ba2); */
+    background: #667eea;
     color: white;
     padding: 15px 10px;
     text-align: center;
