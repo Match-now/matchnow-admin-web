@@ -14,7 +14,8 @@ body {
 }
 
 .container { 
-    max-width: 1400px; 
+    /* max-width: 1400px;  */
+    max-width: 90vw; /* 뷰포트 너비의 90% 사용 */
     margin: 0 auto; 
     padding: 20px; 
 }
