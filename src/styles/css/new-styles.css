@@ -462,14 +462,14 @@
     border-radius: 4px;
 }
 
-.matches-table-container::-webkit-scrollbar-thumb {
+/* .matches-table-container::-webkit-scrollbar-thumb {
     background: linear-gradient(45deg, #667eea, #764ba2);
     border-radius: 4px;
 }
 
 .matches-table-container::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(45deg, #5a67d8, #6c5b7b);
-}
+} */
 
 /* 14. 애니메이션 효과 */
 .matches-table tbody tr {
