@@ -297,18 +297,29 @@
     </div>
 
     <script>
-        // API 설정
+        // API 설정 (HTTPS 포트 제거)
         const API_BASE_URL = (() => {
             const protocol = window.location.protocol;
             const hostname = window.location.hostname;
-            const port = window.location.port;
             
+            console.log(`🌐 로그인 페이지 - 프로토콜: ${protocol}, 호스트: ${hostname}`);
+            
+            // 개발 환경 (localhost인 경우만)
             if (hostname === 'localhost' || hostname === '127.0.0.1') {
                 return `${protocol}//${hostname}:4011/api/v1`;
             }
             
-            return `${protocol}//${hostname}${port && port !== '80' && port !== '443' ? ':' + port : ''}/api/v1`;
+            // 프로덕션 환경
+            if (protocol === 'https:') {
+                // HTTPS는 포트 없이
+                return `https://${hostname}/api/v1`;
+            } else {
+                // HTTP인 경우 (혹시 모를 상황 대비)
+                return `http://${hostname}:4011/api/v1`;
+            }
         })();
+
+        console.log(`🔗 로그인 API Base URL: ${API_BASE_URL}`);
 
         const api = axios.create({
             baseURL: API_BASE_URL,
@@ -370,10 +381,14 @@
             }
 
             try {
+                console.log(`🔗 로그인 요청: POST ${API_BASE_URL}/admin/auth/login`);
+                
                 const response = await api.post('/admin/auth/login', {
                     email,
                     password
                 });
+
+                console.log('📦 로그인 응답:', response.data);
 
                 if (response.data.success) {
                     const { accessToken, user } = response.data.data;
@@ -391,16 +406,30 @@
                     showError(response.data.message || '로그인에 실패했습니다.');
                 }
             } catch (error) {
-                console.error('로그인 에러:', error);
+                console.error('🚨 로그인 에러:', error);
+                console.error('🚨 에러 상세:', {
+                    message: error.message,
+                    response: error.response?.data,
+                    status: error.response?.status,
+                    config: {
+                        url: error.config?.url,
+                        baseURL: error.config?.baseURL,
+                        fullURL: error.config?.baseURL + error.config?.url
+                    }
+                });
                 
                 if (error.response?.status === 401) {
                     showError('이메일 또는 비밀번호가 잘못되었습니다.');
+                } else if (error.response?.status === 404) {
+                    showError('API 서버를 찾을 수 없습니다. 관리자에게 문의하세요.');
                 } else if (error.response?.status === 429) {
                     showError('로그인 시도가 너무 많습니다. 잠시 후 다시 시도해주세요.');
                 } else if (error.response?.data?.message) {
                     showError(error.response.data.message);
                 } else if (error.code === 'ECONNABORTED') {
                     showError('요청 시간이 초과되었습니다. 네트워크 연결을 확인해주세요.');
+                } else if (error.code === 'ERR_NETWORK') {
+                    showError('네트워크 연결을 확인해주세요.');
                 } else {
                     showError('서버 연결에 실패했습니다. 관리자에게 문의해주세요.');
                 }

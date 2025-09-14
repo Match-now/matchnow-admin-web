@@ -245,18 +245,29 @@
     </div>
 
     <script>
-        // API 설정
+        // API 설정 (HTTPS 포트 제거)
         const API_BASE_URL = (() => {
             const protocol = window.location.protocol;
             const hostname = window.location.hostname;
-            const port = window.location.port;
             
+            console.log(`🌐 회원가입 페이지 - 프로토콜: ${protocol}, 호스트: ${hostname}`);
+            
+            // 개발 환경 (localhost인 경우만)
             if (hostname === 'localhost' || hostname === '127.0.0.1') {
                 return `${protocol}//${hostname}:4011/api/v1`;
             }
             
-            return `${protocol}//${hostname}${port && port !== '80' && port !== '443' ? ':' + port : ''}/api/v1`;
+            // 프로덕션 환경
+            if (protocol === 'https:') {
+                // HTTPS는 포트 없이
+                return `https://${hostname}/api/v1`;
+            } else {
+                // HTTP인 경우 (혹시 모를 상황 대비)
+                return `http://${hostname}:4011/api/v1`;
+            }
         })();
+
+        console.log(`🔗 회원가입 API Base URL: ${API_BASE_URL}`);
 
         const api = axios.create({
             baseURL: API_BASE_URL,
@@ -345,12 +356,16 @@
             const password = document.getElementById('password').value;
 
             try {
+                console.log(`🔗 회원가입 요청: POST ${API_BASE_URL}/admin/auth/register`);
+                
                 const response = await api.post('/admin/auth/register', {
                     email,
                     name,
                     role,
                     password
                 });
+
+                console.log('📦 회원가입 응답:', response.data);
 
                 if (response.data.success) {
                     showSuccess('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다...');
@@ -362,7 +377,17 @@
                     showError(response.data.message || '회원가입에 실패했습니다.');
                 }
             } catch (error) {
-                console.error('회원가입 에러:', error);
+                console.error('🚨 회원가입 에러:', error);
+                console.error('🚨 에러 상세:', {
+                    message: error.message,
+                    response: error.response?.data,
+                    status: error.response?.status,
+                    config: {
+                        url: error.config?.url,
+                        baseURL: error.config?.baseURL,
+                        fullURL: error.config?.baseURL + error.config?.url
+                    }
+                });
                 
                 if (error.response?.status === 409) {
                     showError('이미 등록된 이메일입니다.');
@@ -373,10 +398,14 @@
                     } else {
                         showError(message || '입력 정보를 확인해주세요.');
                     }
+                } else if (error.response?.status === 404) {
+                    showError('API 서버를 찾을 수 없습니다. 관리자에게 문의하세요.');
                 } else if (error.response?.data?.message) {
                     showError(error.response.data.message);
                 } else if (error.code === 'ECONNABORTED') {
                     showError('요청 시간이 초과되었습니다. 네트워크 연결을 확인해주세요.');
+                } else if (error.code === 'ERR_NETWORK') {
+                    showError('네트워크 연결을 확인해주세요.');
                 } else {
                     showError('서버 연결에 실패했습니다. 관리자에게 문의해주세요.');
                 }
@@ -402,6 +431,7 @@
             const token = localStorage.getItem('adminToken');
             if (token) {
                 // 이미 로그인된 상태라면 메인 페이지로 리다이렉트
+                console.log('🔄 이미 로그인됨 - 메인 페이지로 리다이렉트');
                 window.location.href = '/admin/';
             }
         });
